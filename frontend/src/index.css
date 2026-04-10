@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body { font-family: 'Inter', system-ui, sans-serif; }
+  code, pre, .font-mono { font-family: 'JetBrains Mono', monospace; }
+  .font-display { font-family: 'Orbitron', sans-serif; }
+}
+
+@layer components {
+  .panel {
+    @apply bg-panel border border-border rounded-xl;
+  }
+  .panel-glow {
+    @apply panel transition-all duration-300;
+    box-shadow: 0 0 0 transparent;
+  }
+  .panel-glow:hover {
+    box-shadow: 0 0 20px #00d4ff18, inset 0 0 20px #00d4ff08;
+    border-color: #00d4ff44;
+  }
+  .btn-primary {
+    @apply bg-accent text-void font-semibold px-4 py-2 rounded-lg
+           hover:bg-cyan-300 transition-all duration-200 text-sm;
+  }
+  .btn-ghost {
+    @apply border border-border text-muted px-4 py-2 rounded-lg
+           hover:border-accent hover:text-accent transition-all duration-200 text-sm;
+  }
+  .tag {
+    @apply text-xs px-2 py-0.5 rounded-full font-mono;
+  }
+  .score-bar {
+    @apply h-1.5 rounded-full bg-border overflow-hidden;
+  }
+  .score-fill {
+    @apply h-full rounded-full transition-all duration-700;
+  }
+}
+
+/* Scanline overlay */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 2px,
+    rgba(0,212,255,0.015) 2px, rgba(0,212,255,0.015) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Grid background */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Glow text */
+.glow-text { text-shadow: 0 0 20px currentColor; }
+
+/* Agent status dot */
+.status-dot {
+  @apply w-2 h-2 rounded-full;
+}
+.status-dot.active { @apply bg-success animate-pulse; }
+.status-dot.idle { @apply bg-muted; }
+.status-dot.error { @apply bg-danger animate-pulse; }
+
+/* Number ticker */
+@keyframes countup {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.count-anim { animation: countup 0.4s ease-out forwards; }
+
+/* Neon border */
+.neon-border {
+  box-shadow: 0 0 10px #00d4ff33, inset 0 0 10px #00d4ff08;
+  border-color: #00d4ff55;
+}
